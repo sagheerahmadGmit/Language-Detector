@@ -1,16 +1,20 @@
 package ie.gmit.sw;
 
 public class LanguageEntry implements Comparable<LanguageEntry> {
+	
+	//variables
 	private int kmer;
 	private int frequency;
 	private int rank;
 
+	//constructor
 	public LanguageEntry(int kmer, int frequency) {
 		super();
 		this.kmer = kmer;
 		this.frequency = frequency;
 	}
-
+	
+	//getters and setters
 	public int getKmer() {
 		return kmer;
 	}
@@ -35,6 +39,7 @@ public class LanguageEntry implements Comparable<LanguageEntry> {
 		this.rank = rank;
 	}
 
+	//compareTo one ngram to another - compare by frequency in descending order
 	@Override
 	public int compareTo(LanguageEntry next) {
 		return - Integer.compare(frequency, next.getFrequency());
