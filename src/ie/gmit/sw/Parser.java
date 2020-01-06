@@ -9,13 +9,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * The Class Parser.
+ */
 public class Parser implements Runnable{
 	
+	/** The db. */
 	//variables
 	private Database db = null;
+	
+	/** The file. */
 	private String file;
+	
+	/** The k. */
 	private int k;
 	
+	/**
+	 * Instantiates a new parser.
+	 *
+	 * @param file the file
+	 * @param k the k
+	 */
 	//constructor
 	public Parser(String file, int k)
 	{
@@ -23,12 +37,23 @@ public class Parser implements Runnable{
 		this.k = k;
 	}
 	
+	/**
+	 * Sets the db.
+	 *
+	 * @param db the new Database
+	 */
 	//set the database
 	public void setDb(Database db)
 	{
 		this.db = db;
 	}
 	
+	/**
+	 * Run.
+	 * 
+	 * use bufferReader to read the file.
+	 * split each line based on the @ symbol into an arrayList.
+	 */
 	@Override
 	public void run()
 	{
@@ -53,6 +78,18 @@ public class Parser implements Runnable{
 		}
 	}
 	
+	/**
+	 * Parses the.
+	 *
+	 * @param text the text
+	 * @param lang the language
+	 * @param ks the kmer
+	 * 
+	 * maps string lang to enum language - must match exactly.
+	 * loop over the sequence - chunks of k.
+	 * read the substring from i to i+k.
+	 * add to map.
+	 */
 	public void parse(String text, String lang, int...ks )
 	{
 		//maps string lang to enum language - must match exactly
@@ -69,6 +106,22 @@ public class Parser implements Runnable{
 		}
 	}
 
+	/**
+	 * Analyse query.
+	 *
+	 * @param file the file
+	 * @return the language
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * 
+	 * if the file is not empty keep running while loop.
+	 * decides how big the ngram is - from length of the file.
+	 * gets the kmer - read the substring from i to i+k.
+	 * convert sequenceChar to hashcode and save as int.
+	 * if the hashmap contains the ngram then increment the frequency.
+	 * call the language entry constructor to set the ngram and frequency.
+	 * Add to a hashMap.
+	 * get the language and return it.
+	 */
 	public Language analyseQuery(String file) throws IOException{
 		
 		int ngram = 0;
