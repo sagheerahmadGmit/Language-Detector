@@ -1,6 +1,7 @@
 //Menu
 package ie.gmit.sw;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -47,16 +48,20 @@ public class Menu {
 		System.out.println("|*             Text Language Detector              *|");
 		System.out.println("|*                                                 *|");
 		System.out.println("|***************************************************|");
+		
 		// Ask the user to enter the Wili File Location
-		System.out.println("Enter WiLI Data Location: ");
-		wiliLocation = s.next();
+		do {
+			System.out.println("Enter WiLI Data Location: ");
+			wiliLocation = s.next();
+		}while(!new File(wiliLocation).isFile());
+		
 
 		try {
 			
 			//change the number of ngrams used
 			do
 			{
-				System.out.println("The default ngram is 3(Recommended)");
+				System.out.println("\nThe default ngram is 3(Recommended)");
 				System.out.println("If you like to Change this press 1 or press 2 to use default: ");
 				choice = s.nextInt();
 			}while(!(choice == 1) && !(choice == 2));
@@ -68,7 +73,7 @@ public class Menu {
 			}
 			else
 			{
-				System.out.println("\nDefault Ngram is being used\n");
+				System.out.println("\nDefault Ngram is being used(3)!");
 				ngram = 3;
 			}
 
@@ -89,8 +94,11 @@ public class Menu {
 			db.resize(300);
 
 			// ask the user to entry the query file - Language they want to detect
-			System.out.println("Enter Query File Location: ");
-			queryFile = s.next();
+			do {
+				System.out.println("Enter Query File Location: ");
+				queryFile = s.next();
+			}while(!new File(queryFile).isFile());
+			
 
 			// Analyse the file and see what language it is and print out the result
 			Language query = p.analyseQuery(queryFile);
